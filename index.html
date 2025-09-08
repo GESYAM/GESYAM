@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <title>Gestión Social y Ambiental</title>
+   <style>
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+       }
+
+       body {
+           font-family: 'Arial', sans-serif;
+           line-height: 1.6;
+           color: #ffffff;
+           background: #000000;
+           min-height: 100vh;
+       }
+
+       header {
+           background: rgba(0, 0, 0, 0.95);
+           backdrop-filter: blur(10px);
+           padding: 1rem 2rem;
+           box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+           position: sticky;
+           top: 0;
+           z-index: 100;
+           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+       }
+
+       .header-container {
+           max-width: 1400px;
+           margin: 0 auto;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           flex-wrap: wrap;
+           gap: 1rem;
+       }
+
+       .logo-section {
+           display: flex;
+           align-items: center;
+           gap: 1rem;
+       }
+
+       .logo-container {
+           width: 60px;
+           height: 60px;
+           background: rgba(255, 255, 255, 0.1);
+           border-radius: 12px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           border: 2px solid rgba(0, 255, 150, 0.3);
+           transition: all 0.3s ease;
+           overflow: hidden;
+       }
+
+       .logo-container:hover {
+           border-color: rgba(0, 255, 150, 0.6);
+           box-shadow: 0 5px 15px rgba(0, 255, 150, 0.3);
+       }
+
+       .logo-container img {
+           width: 100%;
+           height: 100%;
+           object-fit: contain;
+           border-radius: 8px;
+       }
+
+       .logo-placeholder {
+           color: #00ff96;
+           font-size: 1.5rem;
+           font-weight: bold;
+       }
+
+       .brand-text {
+           text-align: left;
+       }
+
+       .brand-text h1 {
+           font-size: 2rem;
+           color: #ffffff;
+           margin-bottom: 0.2rem;
+           text-shadow: 2px 2px 8px rgba(0, 255, 150, 0.3);
+           font-weight: bold;
+           line-height: 1;
+       }
+
+       .brand-text p {
+           font-size: 0.9rem;
+           color: #cccccc;
+           margin: 0;
+           line-height: 1.2;
+       }
+
+       nav {
+           display: flex;
+           align-items: center;
+       }
+
+       nav ul {
+           list-style: none;
+           display: flex;
+           gap: 1.5rem;
+           margin: 0;
+       }
+
+       nav a {
+           text-decoration: none;
+           color: #ffffff;
+           font-weight: 600;
+           padding: 0.6rem 1.2rem;
+           border-radius: 20px;
+           transition: all 0.3s ease;
+           border: 2px solid transparent;
+           background: rgba(255, 255, 255, 0.1);
+           font-size: 0.9rem;
+       }
+
+       nav a:hover {
+           background: linear-gradient(45deg, #00ff96, #00cc77);
+           color: #000000;
+           transform: translateY(-2px);
+           box-shadow: 0 6px 20px rgba(0, 255, 150, 0.4);
+           border: 2px solid rgba(0, 255, 150, 0.5);
+       }
+
+       main {
+           max-width: 1400px;
+           margin: 0 auto;
+           padding: 2rem;
+       }
+
+       .main-content {
+           display: grid;
+           grid-template-columns: 400px 1fr;
+           gap: 2rem;
+           margin-bottom: 3rem;
+           min-height: 80vh;
+       }
+
+       .video-section {
+           background: rgba(255, 255, 255, 0.05);
+           backdrop-filter: blur(10px);
+           padding: 1.5rem;
+           border-radius: 20px;
+           box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+           border: 1px solid rgba(255, 255, 255, 0.1);
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+       }
+
+       .content-section {
+           display: flex;
+           flex-direction: column;
+           gap: 2rem;
+       }
+
+       .info-card {
+           background: rgba(255, 255, 255, 0.05);
+           backdrop-filter: blur(10px);
+           padding: 2rem;
+           border-radius: 20px;
+           box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+           border: 1px solid rgba(255, 255, 255, 0.1);
+           transition: transform 0.3s ease;
+           flex: 1;
+       }
+
+       .info-card:hover {
+           transform: translateY(-5px);
+           box-shadow: 0 15px 40px rgba(0, 255, 150, 0.2);
+       }
+
+       h2 {
+           color: #ffffff;
+           margin-bottom: 1.5rem;
+           font-size: 1.8rem;
+           position: relative;
+       }
+
+       h2::after {
+           content: '';
+           display: block;
+           width: 60px;
+           height: 3px;
+           background: linear-gradient(45deg, #00ff96, #00cc77);
+           margin: 0.5rem 0;
+           border-radius: 2px;
+       }
+
+       h3 {
+           color: #ffffff;
+           margin-bottom: 1.5rem;
+           font-size: 1.4rem;
+           text-align: center;
+       }
+
+       p {
+           text-align: justify;
+           line-height: 1.8;
+           margin-bottom: 1rem;
+           color: #cccccc;
+           font-size: 0.95rem;
+       }
+
+       /* Video vertical */
+       .vertical-video {
+           width: 300px;
+           max-width: 100%;
+           height: 530px;
+           border-radius: 15px;
+           box-shadow: 0 8px 25px rgba(0, 255, 150, 0.2);
+           border: 2px solid rgba(0, 255, 150, 0.3);
+           object-fit: cover;
+       }
+
+       .projects-list {
+           list-style: none;
+           padding: 0;
+       }
+
+       .projects-list li {
+           padding: 0.8rem 0;
+           padding-left: 2rem;
+           position: relative;
+           color: #cccccc;
+           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+           transition: all 0.3s ease;
+           font-size: 0.95rem;
+       }
+
+       .projects-list li:hover {
+           color: #00ff96;
+           padding-left: 2.5rem;
+       }
+
+       .projects-list li::before {
+           content: '→';
+           position: absolute;
+           left: 0;
+           color: #00ff96;
+           font-weight: bold;
+           font-size: 1.2rem;
+       }
+
+       .projects-list li:last-child {
+           border-bottom: none;
+       }
+
+       .contact-section {
+           background: rgba(255, 255, 255, 0.05);
+           backdrop-filter: blur(10px);
+           padding: 3rem 2rem;
+           border-radius: 20px;
+           box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+           border: 1px solid rgba(255, 255, 255, 0.1);
+           text-align: center;
+       }
+
+       .contact-section h2 {
+           text-align: center;
+       }
+
+       .contact-section h2::after {
+           margin: 0.5rem auto;
+       }
+
+       .social-icons {
+           display: flex;
+           justify-content: center;
+           gap: 1.5rem;
+           flex-wrap: wrap;
+           margin-top: 2rem;
+       }
+
+       .social-icons a {
+           display: inline-block;
+           padding: 1rem 2rem;
+           background: linear-gradient(45deg, #00ff96, #00cc77);
+           color: #000000;
+           text-decoration: none;
+           border-radius: 25px;
+           font-weight: 700;
+           transition: all 0.3s ease;
+           box-shadow: 0 4px 15px rgba(0, 255, 150, 0.3);
+           border: 2px solid transparent;
+       }
+
+       .social-icons a:hover {
+           transform: translateY(-3px);
+           box-shadow: 0 8px 25px rgba(0, 255, 150, 0.5);
+           background: linear-gradient(45deg, #00cc77, #00ff96);
+           border: 2px solid rgba(0, 255, 150, 0.7);
+       }
+
+       footer {
+           background: rgba(0, 0, 0, 0.9);
+           color: #cccccc;
+           text-align: center;
+           padding: 2rem;
+           margin-top: 3rem;
+           border-top: 1px solid rgba(255, 255, 255, 0.1);
+       }
+
+       @media (max-width: 1024px) {
+           .main-content {
+               grid-template-columns: 1fr;
+               gap: 2rem;
+           }
+           
+           .video-section {
+               order: 1;
+           }
+           
+           .content-section {
+               order: 2;
+           }
+
+           .header-container {
+               flex-direction: column;
+               text-align: center;
+           }
+
+           .brand-text {
+               text-align: center;
+           }
+
+           .vertical-video {
+               width: 250px;
+               height: 440px;
+           }
+       }
+
+       @media (max-width: 768px) {
+           .brand-text h1 {
+               font-size: 1.6rem;
+           }
+
+           .logo-container {
+               width: 50px;
+               height: 50px;
+           }
+
+           nav ul {
+               flex-direction: column;
+               gap: 0.8rem;
+               width: 100%;
+           }
+
+           nav a {
+               display: block;
+               text-align: center;
+               padding: 0.5rem 1rem;
+           }
+
+           main {
+               padding: 1rem;
+           }
+
+           .info-card {
+               padding: 1.5rem;
+           }
+
+           .social-icons {
+               flex-direction: column;
+               align-items: center;
+           }
+
+           .social-icons a {
+               width: 200px;
+               text-align: center;
+           }
+
+           .vertical-video {
+               width: 200px;
+               height: 350px;
+           }
+
+           h2 {
+               font-size: 1.5rem;
+           }
+
+           h3 {
+               font-size: 1.2rem;
+           }
+       }
+   </style>
+</head>
+<body>
+   <header>
+       <div class="header-container">
+           <div class="logo-section">
+               <div class="logo-container">
+                   <img src="logo.png" alt="GESYAM Logo">
+               </div>
+               <div class="brand-text">
+                   <h1>GESYAM</h1>
+                   <p>Gestión Social y Ambiental SAS</p>
+               </div>
+           </div>
+           <nav>
+               <ul>
+                   <li><a href="#main-content">Inicio</a></li>
+                   <li><a href="#contacto">Contacto</a></li>
+               </ul>
+           </nav>
+       </div>
+   </header>
+
+   <main>
+       <div class="main-content" id="main-content">
+           <!-- Columna izquierda: Video VERTICAL -->
+           <div class="video-section">
+               <video class="vertical-video" controls autoplay muted loop preload="metadata">
+                   <source src="video-vertical.mp4" type="video/mp4">
+                   <source src="228847_small.mp4" type="video/mp4">
+                   Tu navegador no admite videos HTML5.
+               </video>
+           </div>
+
+           <!-- Columna derecha: Contenido -->
+           <div class="content-section">
+               <!-- Tarjeta superior: Quiénes somos -->
+               <div class="info-card">
+                   <h2>¿Quiénes somos?</h2>
+                   <p>
+                       Somos una empresa que promueve el desarrollo económico, humano y sostenible con comunidades, mediante la creación e implementación de proyectos que articulan actores comunitarios e institucionales con el contexto territorial; para armonizar el desarrollo económico con la protección del entorno y el bienestar de las comunidades.
+                   </p>
+               </div>
+
+               <!-- Tarjeta inferior: Qué hacemos -->
+               <div class="info-card">
+                   <h2>Qué hacemos</h2>
+                   <ul class="projects-list">
+                       <li>Educación ambiental participativa y comunicación de procesos</li>
+                       <li>Gestión de alianzas institucionales y cooperación internacional</li>
+                       <li>Formulación e implementación de proyectos de manejo de recursos naturales</li>
+                       <li>Acompañamiento a la creación de empresas y fortalecimiento de organizaciones comunitarias</li>
+                   </ul>
+               </div>
+           </div>
+       </div>
+
+       <!-- Sección de contacto -->
+       <section class="contact-section" id="contacto">
+           <h2>Contáctanos</h2>
+           <p>Síguenos en redes sociales o escríbenos para más información sobre nuestros proyectos y servicios:</p>
+           <div class="social-icons">
+               <a href="https://www.linkedin.com/in/gesyam-gestion-social-y-ambiental-7b6878369/" target="_blank">LinkedIn</a>
+               <a href="https://www.youtube.com/@GESYAM-f1h2l" target="_blank">YouTube</a>
+               <a href="https://www.facebook.com/profile.php?id=61577193775573" target="_blank">Facebook</a>
+               <a href="https://www.instagram.com/gesy.am10/" target="_blank">Instagram</a>
+           </div>
+       </section>
+   </main>
+
+   <footer>
+       <p>© 2025 Gestión Social y Ambiental SAS. Todos los derechos reservados.</p>
+   </footer>
+</body>
+</html>
